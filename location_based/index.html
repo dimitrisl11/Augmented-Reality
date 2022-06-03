@@ -16,11 +16,24 @@
 		embedded
 		arjs='sourceType: webcam; debugUIEnabled: false;'>
 
-        <a-box
-            material="color: red;"
-            scale="20 20 20"
-            gps-entity-place="latitude: 44.506477; longitude: 11.301524;">
-        </a-box>
+             <a-assets>
+             <a-asset-item id="scene" src="assets/scene.gltf"></a-asset-item>
+      </a-assets>
+
+            <a-entity id="scene" position="0 0 -180" class="click"
+                      scale="2 2 2"
+                      gltf-model="#scene"
+		                  animation__rotate = "property: rotation; dur: 5000; easing: linear; dir: normal; from:0 0 0; to: 0 360 0; loop: true;"
+                      gps-entity-place="latitude: 44.4908615; longitude: 11.33266416;" information>
+            </a-entity>
+
+	    
+      <a-text id="scene_info" class="clickable" text="value: computer lab"
+           position="0 0 -90"
+           color= "#F4D35E"
+           scale="5 5 5"
+           visible="false">
+      </a-text>
 
         <a-camera
             rotation-reader
