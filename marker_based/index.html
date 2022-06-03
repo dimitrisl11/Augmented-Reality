@@ -20,11 +20,7 @@
     embedded
     arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
-             <a-assets>
-            <img id="dpsd" src="assets/Untitled9.png">
-            <img id="hydrogen" src="assets/pattern-card-H.png">
-            <img id="oxygen" src="assets/pattern-card-O.png">
-                 </a-assets>
+            
              <a-marker preset="hiro">
             <a-entity id="box" geometry="primitive: box; width: 0.2; depth: 0.2; height: 1.0" position="0 0 0" material="color: #4CC3D9"></a-entity>
             <a-cylinder id="cylinder" geometry="primitive: cylinder; radius: 0.5; height:1.5" position="0.2 0.2 0.2" material="color: #FFC65D"></a-cylinder>
@@ -37,7 +33,61 @@
               <a-entity id="annyang" annyang-speech-recognition></a-entity>
             </a-entity>
          </a-marker>
+        
+         
+            
+                
+            
+             <script>
+                 
+             AFRAME.registerComponent("marker_distance",{
 
+            init: function () {
+            this.hydrogen = document.querySelector('#Hydrogen')
+            this.oxygen = document.querySelector('#Oxygen')
+            this.water= document.querySelector ('#water')
+            this.marker_hydrogen = document.querySelector('#marker_hydrogen')
+            this.marker_oxygen = document.querySelector('#marker_oxygen')
+
+        },
+            
+            
+            
+           tick: function() {
+               
+               
+            var marker_hydrogen_pos, marker_oxygen_pos, marker_distance
+            marker_hydrogen_pos = new THREE.Vector3();
+            this.marker_hydrogen.object3D.getWorldPosition(marker_hydrogen_pos);
+            marker_oxygen_pos = new THREE.Vector3();
+            this.marker_oxygen_pos.object3D.getWorldPosition(marker_oxygen_pos);
+            marker_distance = marker_hydrogen_pos.distanceTo(marker_oxygen_pos);
+               
+            if (marker_distance<2)
+            {
+                this.hydrogen.setAttribute("visible", false)
+                this.oxygen.setAttribute("visible", false)
+                this.water.setAttribute("visible", true)
+            }
+            else
+            {
+                this.hydrogen.setAttribute("visible",true)
+                this.oxygen.setAttribute("visible",true)
+                this.water.setAttribute("visible", false)
+            }
+        },
+    });
+                    
+    </script>
+            
+        <a-entity marker_distance></a-entity>
+               
+        <a-marker type="pattern" url="assets/pattern-Untitled9.patt">
+        <a-image src="assets/avatars-TtLdIjahCptidyZM-gvkp5g-t500x500.jpg" position="0 0.5 0"></a-image>
+        <a-text value="Dimitris Lymtsioulis" position="-1 1.2 0"></a-text>
+        </a-marker>
+        
+        
       
         <a-entity camera></a-entity>
         </a-scene>
